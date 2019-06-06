@@ -3,10 +3,70 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ShopFinder"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="ShopFinder" Height="482.569" Width="1224.35"
+        Background="DarkViolet" Closed="MainWindow_OnClosed" Topmost="True">
+    <Grid Margin="10,10,2,9">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Label Background="Violet" Opacity="0.3" HorizontalAlignment="Center" FontFamily="Algerian Regular" FontSize="41" Content="Shop Finder" Margin="10,10,10,0" VerticalAlignment="Top" Height="58"/>
+            <GroupBox Header="Max Pages">
+                <TextBox Name="MaxPagesTextBox" Text="10"/>
+            </GroupBox>
+            <GroupBox Header="Max Sites">
+                <TextBox Name="MaxSitesTextBox" Text="200"/>
+            </GroupBox>
+            <GroupBox Header="Delay per site">
+                <TextBox Name="DelayTextBox" Text="1000"/>
+            </GroupBox>
+            <GroupBox Header="Category">
+                <ComboBox Name="CategoryComboBox" SelectedIndex="0"/>
+            </GroupBox>
+            <GroupBox Header="Sorting">
+                <ComboBox Name="SortingComboBox"  SelectedIndex="0"/>
+            </GroupBox>
+            <Button Margin="10" Name="FindButton" Click="FindButton_Click">
+                <Label Name="FindButtonText"  Content="Find!" FontSize="36"></Label>
+            </Button>
+            <GroupBox Header="Stats">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Processed:"></Label>
+                    <Label Content="0" Name="ProcessedLabel"></Label>
+                    <Label Content="Dead:"></Label>
+                    <Label Content="0" Name="DeadLabel"></Label>
+                    <Label Content="Time:"></Label>
+                    <Label Content="00:00:00" Name="TimeLabel"></Label>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <DockPanel Grid.Column="1">
+            <UniformGrid DockPanel.Dock="Top" Columns="2">
+                <Button FontSize="18" Name="ClearButton" Click="ClearButton_Click">Clear</Button>
+                <Button FontSize="18" Name="ExportButton">Export</Button>
+            </UniformGrid>
+            <ListView Name="ResultListView">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="True">
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="100"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Merch}" Header="Merch" Width="150"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Link}" Header="Link" Width="100"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Reviews}" Header="Reviews" Width="80"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=AccessibleFromUa}" Header="Accessible" Width="70"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=RRLink}" Header="RRLink" Width="100"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Address}" Header="Address" Width="100"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Description}" Header="Description" Width="120"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Category}" Header="Category" Width="100"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </DockPanel>
     </Grid>
 </Window>
